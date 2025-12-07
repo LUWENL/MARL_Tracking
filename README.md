@@ -1,130 +1,68 @@
-# MAPPO
-
-## New Update！！！We support SMAC V2 now～
-
-Chao Yu*, Akash Velu*, Eugene Vinitsky, Jiaxuan Gao, Yu Wang, Alexandre Bayen, and Yi Wu. 
-
-This repository implements MAPPO, a multi-agent variant of PPO. The implementation in this repositorory is used in the paper "The Surprising Effectiveness of PPO in Cooperative Multi-Agent Games" (https://arxiv.org/abs/2103.01955). This repository is heavily based on https://github.com/ikostrikov/pytorch-a2c-ppo-acktr-gail. We also make the off-policy repo public, please feel free to try that. [off-policy link](https://github.com/marlbenchmark/off-policy)
-
-<font color="red"> All hyperparameters and training curves are reported in appendix, we would strongly suggest to double check the important factors before runing the code, such as the rollout threads, episode length, ppo epoch, mini-batches, clip term and so on. <font color='red'>Besides, we have updated the newest results on google football testbed and suggestions about the episode length and parameter-sharing in appendix, welcome to check that. </font>
-
-<font color="red"> We have recently noticed that a lot of papers do not reproduce the mappo results correctly, probably due to the rough hyper-parameters description. We have updated training scripts for each map or scenario in /train/train_xxx_scripts/*.sh. Feel free to try that.</font>
-
-
-## Environments supported:
-
-- [StarCraftII (SMAC)](https://github.com/oxwhirl/smac)
-- [Hanabi](https://github.com/deepmind/hanabi-learning-environment)
-- [Multiagent Particle-World Environments (MPEs)](https://github.com/openai/multiagent-particle-envs)
-- [Google Research Football (GRF)](https://github.com/google-research/football)
-- [StarCraftII (SMAC) v2](https://github.com/oxwhirl/smacv2)
-
-## 1. Usage
-**WARNING: by default all experiments assume a shared policy by all agents i.e. there is one neural network shared by all agents**
-
-All core code is located within the onpolicy folder. The algorithms/ subfolder contains algorithm-specific code
-for MAPPO. 
-
-* The envs/ subfolder contains environment wrapper implementations for the MPEs, SMAC, and Hanabi. 
-
-* Code to perform training rollouts and policy updates are contained within the runner/ folder - there is a runner for 
-each environment. 
-
-* Executable scripts for training with default hyperparameters can be found in the scripts/ folder. The files are named
-in the following manner: train_algo_environment.sh. Within each file, the map name (in the case of SMAC and the MPEs) can be altered. 
-* Python training scripts for each environment can be found in the scripts/train/ folder. 
-
-* The config.py file contains relevant hyperparameter and env settings. Most hyperparameters are defaulted to the ones
-used in the paper; however, please refer to the appendix for a full list of hyperparameters used. 
-
-
-## 2. Installation
-
- Here we give an example installation on CUDA == 10.1. For non-GPU & other CUDA version installation, please refer to the [PyTorch website](https://pytorch.org/get-started/locally/). We remark that this repo. does not depend on a specific CUDA version, feel free to use any CUDA version suitable on your own computer.
-
-``` Bash
-# create conda environment
-conda create -n marl python==3.6.1
-conda activate marl
-pip install torch==1.5.1+cu101 torchvision==0.6.1+cu101 -f https://download.pytorch.org/whl/torch_stable.html
-```
-
-```
-# install on-policy package
-cd on-policy
-pip install -e .
-```
-
-Even though we provide requirement.txt, it may have redundancy. We recommend that the user try to install other required packages by running the code and finding which required package hasn't installed yet.
-
-### 2.1 StarCraftII [4.10](http://blzdistsc2-a.akamaihd.net/Linux/SC2.4.10.zip)
-
-   
-
-``` Bash
-unzip SC2.4.10.zip
-# password is iagreetotheeula
-echo "export SC2PATH=~/StarCraftII/" >> ~/.bashrc
-```
-
-* download SMAC Maps, and move it to `~/StarCraftII/Maps/`.
-
-* To use a stableid, copy `stableid.json` from https://github.com/Blizzard/s2client-proto.git to `~/StarCraftII/`.
-
-For SMAC v2, please refer to https://github.com/oxwhirl/smacv2.git. Make sure you have the `32x32_flat.SC2Map` map file in your `SMAC_Maps` folder.
-
-### 2.2 Hanabi
-Environment code for Hanabi is developed from the open-source environment code, but has been slightly modified to fit the algorithms used here.  
-To install, execute the following:
-``` Bash
-pip install cffi
-cd envs/hanabi
-mkdir build & cd build
-cmake ..
-make -j
-```
-Here are all hanabi [models](https://drive.google.com/drive/folders/1RIcP_rG9NY9UzaWfFsIncDcjASk5h4Nx?usp=sharing).
-
-### 2.3 MPE
-
-``` Bash
-# install this package first
-pip install seaborn
-```
-
-There are 3 Cooperative scenarios in MPE:
-
-* simple_spread
-* simple_speaker_listener, which is 'Comm' scenario in paper
-* simple_reference
-
-### 2.4 GRF
-
-Please see the [football](https://github.com/google-research/football/blob/master/README.md) repository to install the football environment.
-
-## 3.Train
-Here we use train_mpe.sh as an example:
-```
-cd onpolicy/scripts
-chmod +x ./train_mpe.sh
-./train_mpe.sh
-```
-Local results are stored in subfold scripts/results. Note that we use Weights & Bias as the default visualization platform; to use Weights & Bias, please register and login to the platform first. More instructions for using Weights&Bias can be found in the official [documentation](https://docs.wandb.ai/). Adding the `--use_wandb` in command line or in the .sh file will use Tensorboard instead of Weights & Biases. 
-
-We additionally provide `./eval_hanabi_forward.sh` for evaluating the hanabi score over 100k trials. 
-
-## 4. Publication
-
-If you find this repository useful, please cite our [paper](https://arxiv.org/abs/2103.01955):
-```
-@inproceedings{
-yu2022the,
-title={The Surprising Effectiveness of {PPO} in Cooperative Multi-Agent Games},
-author={Chao Yu and Akash Velu and Eugene Vinitsky and Jiaxuan Gao and Yu Wang and Alexandre Bayen and Yi Wu},
-booktitle={Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
-year={2022}
-}
-```
-
 # MARL_Tracking
-# MARL_Tracking
+
+### :bulb: Active Continuous Tracking of Moving Targets by Multiple Satellites Based on Multi-Agent Reinforcement Learning
+
+
+<p align="center">
+<img src="problem_statement.png" width="1500px" height="550px" />
+</p>
+
+### keyword
+Multi-agent Reinforcement Learning, Moving Target Tracking, Satellite Attitude control, Intelligent systems.
+
+> Abstract: Active continuous tracking of moving targets by multiple agile satellites is crucial for time-sensitive missions such as situational awareness and dynamic surveillance, yet it confronts challenges including real-time decision-making, decentralized coordination, and the maintenance of tracking continuity.
+Traditional "scheduling first, tracking second" frameworks are plagued by tracking interruptions caused by target-switching delays and exhibit heavy reliance on high-performance inter-satellite communication, which limits their adaptability to complex space environments.
+To address these issues, this paper proposes a multi-agent reinforcement learning (MARL)-based framework integrated with a trajectory prediction module for active continuous tracking of moving targets.
+Specifically, the tracking problem is formulated as a Decentralized Partially Observable Markov Decision Process (Dec-POMDP), enabling each satellite agent to make real-time decisions based solely on local observations without relying on the transmission of global state information.
+An efficient target trajectory prediction module—equipped with an improved neural network architecture that combines a Gated Embedding Layer and Multi-Head Wavelet Attention—is designed to forecast target motion dynamics, providing state information to support precise tracking adjustments.
+The framework adopts an end-to-end direct torque control strategy, where a pre-trained Multi-Agent Proximal Policy Optimization (MAPPO)-based policy network maps local observations directly to actuator commands with millisecond-level inference speed.
+Comparative experiments with representative tracking frameworks across three scenarios of varying complexity demonstrate that the proposed framework leverages the trajectory prediction module and learning-based controller to significantly improve continuous tracking performance—outperforming other frameworks in tracking continuity—while eliminating the high inter-satellite communication requirements and scheduling-induced time overhead, thus fully meeting the strict real-time demands of time-sensitive target tracking missions.
+
+
+## 🛰️ Our Implementations
+### MARL_Tracking Env for MARL training/testing
+[Environment Implementation Code](onpolicy/envs/marltracking).
+### Target Trajectory Prediction: Perceptual Wavelet Transform based Flight Trajectory Prediction (PWTFTP)
+[PWTFTP Implementation Code](onpolicy/envs/models/TTP_module).
+### Three Tracking Scenarios
+| Scenario   | Num of Satellites | Num of Targets | Duration |
+|------------|------------|---------|----------|
+| Scenario 1 | 2          | 2       | 10 mins  | 
+| Scenario 2 | 4          | 3       | 12 mins  |
+| Scenario 3 | 5          | 4       | 15 mins  |
+
+
+## 🤖 Getting started
+### 🏃 For Training
+#### <a id="Step1">Step 1</a>: Install the on-policy package according to [Here](https://github.com/marlbenchmark/on-policy/tree/main?tab=readme-ov-file#2-installation).
+#### <a id="Step2">Step 2</a>: Modify algorithm parameters in [METADATA](onpolicy/envs/marltracking/metadata.py).
+```.bash
+"mode": 'train'
+"scenario_id": 1/2/3,
+```
+#### <a id="Step3">Step 3</a>: Run the script in [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration)  based on your own mission requirements.
+```.bash
+# Take task1 as an example
+--env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_31actions --scenario_name task1 --num_agents 2 --seed 1 --n_training_threads 1 --n_rollout_threads 2
+--num_mini_batch 1 --episode_length 600 --num_env_steps 5000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "xxxxx"
+```
+
+### 🏃 For Testing
+#### <a id="Step1">Step 1</a>: Install the on-policy package according to [Here](https://github.com/marlbenchmark/on-policy/tree/main?tab=readme-ov-file#2-installation).
+#### <a id="Step2">Step 2</a>: Modify algorithm parameters in [METADATA](onpolicy/envs/marltracking/metadata.py).
+```.bash
+"mode": 'test'
+"scenario_id": 1/2/3,
+```
+#### <a id="Step3">Step 3</a>: Run the script in [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration)  based on your own mission requirements.
+```.bash
+# Take task1 as an example
+--env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_test --scenario_name task1 --num_agents 2 --seed 1 --n_training_threads 1 --n_rollout_threads 1
+--num_mini_batch 1 --episode_length 600 --num_env_steps 5000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "xxxxx"
+--use_eval True --model_dir ../../scripts/results/MARL_TRACKING/task1/mappo/TAES_31actions/xxxxx
+```
+
+
+## 👍 Acknowledgements
+This project is built on the codebases of [MAPPO](https://github.com/marlbenchmark/on-policy) and [WTFTP](https://github.com/MusDev7/wtftp-model).
+
