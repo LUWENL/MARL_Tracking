@@ -79,10 +79,7 @@ class MARL_TrackEnv(gym.Env):
         self.torque2 = 0.015
         self.torque3 = 0.0075
         self.torque4 = 0.0035
-        # self.torque1 = 0.05
-        # self.torque2 = 0.025
-        # self.torque3 = 0.005
-        # self.torque4 = 0.0025
+
 
         self._action_to_torques = {
             0: np.array([0, 0, 0]),
@@ -276,22 +273,6 @@ class MARL_TrackEnv(gym.Env):
         # [0] is used for choose the 1-th target
 
         if entity_type == 'satellite':
-            # info = {"Desired quaternion": entity.desired_quaternion_list[0],
-            #         "Error quaternion": entity.error_quaternion_list[0],
-            #         "Current quaternion": entity.quaternion0 if entity.is_allocated else np.array([0, 0, 0, 1]),
-            #         "Current Omega": entity.omega,
-            #
-            #         "Tracking info": entity.under_detect_list,
-            #         # "Omega during detection": entity.detect_omega_list,
-            #         "Angle": angle_between_vectors(entity.belief_t_eci - entity.s_eci,
-            #                                        entity.orbit2eci(entity.body2orbit(np.array([0, 0, 1])))),
-            #
-            #         # vector OX is Di need. OX = OS + SX 以此类推。。。
-            #         "ox_eci": entity.s_eci + entity.orbit2eci(entity.body2orbit(np.array([1, 0, 0]))),
-            #         "oy_eci": entity.s_eci + entity.orbit2eci(entity.body2orbit(np.array([0, 1, 0]))),
-            #         "oz_eci": entity.s_eci + entity.orbit2eci(entity.body2orbit(np.array([0, 0, 1]))),
-            #         # "oz_eci": satellite.belief_t_eci
-            #         }
             info = {
                 "Current quaternion": entity.quaternion0,
                 "Is tracking": entity.is_tracking,
@@ -303,10 +284,6 @@ class MARL_TrackEnv(gym.Env):
             }
         else:
             info = []
-
-        # if satellite.is_allocated:
-        #     print(angle_between_vectors(satellite.belief_t_eci - satellite.s_eci,
-        #                                 satellite.orbit2eci(satellite.body2orbit(np.array([0, 0, 1])))))
 
         return info
 
