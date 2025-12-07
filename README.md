@@ -4,7 +4,7 @@
 
 
 <p align="center">
-<img src="problem_statement.png" width="1500px" height="550px" />
+<img src="problem_statement.png" width="1500px" height="600px" />
 </p>
 
 ### keyword
@@ -20,11 +20,11 @@ Comparative experiments with representative tracking frameworks across three sce
 
 
 ## 🛰️ Our Implementations
-### MARL_Tracking Env for MARL training/testing
+### :one: MARL_Tracking Env for MARL training/testing
 [Environment Implementation Code](onpolicy/envs/marltracking).
-### Target Trajectory Prediction: Perceptual Wavelet Transform based Flight Trajectory Prediction (PWTFTP)
+### :two: Target Trajectory Prediction: Perceptual Wavelet Transform based Flight Trajectory Prediction (PWTFTP)
 [PWTFTP Implementation Code](onpolicy/envs/models/TTP_module).
-### Three Tracking Scenarios
+### :three: Three Tracking Scenarios
 | Scenario   | Num of Satellites | Num of Targets | Duration |
 |------------|------------|---------|----------|
 | Scenario 1 | 2          | 2       | 10 mins  | 
@@ -40,9 +40,10 @@ Comparative experiments with representative tracking frameworks across three sce
 "mode": 'train'
 "scenario_id": 1/2/3,
 ```
-#### <a id="Step3">Step 3</a>: Run the script in [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration)  based on your own mission requirements.
+#### <a id="Step3">Step 3</a>: Run the [training script](onpolicy/scripts/train/train_tracking.py) based on your own mission requirements [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration).
 ```.bash
 # Take task1 as an example
+python train_tracking.py
 --env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_31actions --scenario_name task1 --num_agents 2 --seed 1 --n_training_threads 1 --n_rollout_threads 2
 --num_mini_batch 1 --episode_length 600 --num_env_steps 5000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "xxxxx"
 ```
@@ -54,15 +55,18 @@ Comparative experiments with representative tracking frameworks across three sce
 "mode": 'test'
 "scenario_id": 1/2/3,
 ```
-#### <a id="Step3">Step 3</a>: Run the script in [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration)  based on your own mission requirements.
+#### <a id="Step3">Step 3</a>: Run the [testing script](onpolicy/scripts/eval/eval_tracking.py) based on your own mission requirements [task1_configuration](onpolicy/task1_configuration) / [task2_configuration](onpolicy/task2_configuration) / [task3_configuration](onpolicy/task3_configuration).
 ```.bash
 # Take task1 as an example
+python eval_tracking.py
 --env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_test --scenario_name task1 --num_agents 2 --seed 1 --n_training_threads 1 --n_rollout_threads 1
 --num_mini_batch 1 --episode_length 600 --num_env_steps 5000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "xxxxx"
 --use_eval True --model_dir ../../scripts/results/MARL_TRACKING/task1/mappo/TAES_31actions/xxxxx
 ```
+#### <a id="Step4">Step 4</a>: The codes of plotting result can be found in [Here](https://github.com/LUWENL/MARL_Tracking/blob/main/onpolicy/runner/shared/tracking_runner.py#L231) and [Here](https://github.com/LUWENL/MARL_Tracking/blob/main/onpolicy/runner/shared/tracking_runner.py#L277C9-L277C66).
+The figures will be saved in this [dir](onpolicy/eval).
 
 
 ## 👍 Acknowledgements
-This project is built on the codebases of [MAPPO](https://github.com/marlbenchmark/on-policy) and [WTFTP](https://github.com/MusDev7/wtftp-model).
+This project is built on the codebases of [MAPPO](https://github.com/marlbenchmark/on-policy) and [WTFTP](https://github.com/MusDev7/wtftp-model). We thank them for their open-source contributions to the community.
 
