@@ -1,0 +1,9 @@
+for training
+--env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_31actions --scenario_name task3 --num_agents 5 --seed 1 --n_training_threads 1 --n_rollout_threads 2
+--num_mini_batch 1 --episode_length 900 --num_env_steps 5000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "602089030-sjtu"
+
+
+
+for evaluation
+--env_name MARL_TRACKING --algorithm_name mappo --experiment_name TAES_test --scenario_name task3 --num_agents 5 --seed 1 --n_training_threads 1 --n_rollout_threads 1
+--num_mini_batch 1 --episode_length 900 --num_env_steps 3000000 --ppo_epoch 15 --gain 0.01 --lr 7e-4 --critic_lr 7e-4 --wandb_name "MARL_TRACKING" --user_name "602089030-sjtu" --use_eval True --model_dir ../../scripts/results/MARL_TRACKING/task3/mappo/TAES_31actions/wandb/run-20251202_105043-o4z60a1h/files
