@@ -4,7 +4,7 @@ METADATA = {
   "with_trajectory_prediction": True,
   "seed": 11,
   "env_id": "MARLTrackEnv-v0",
-  "is_discrete": False,
+  "is_discrete": True,
 
   "scenario_id": 3,
   "start_datetime": "1 Oct 2025 06:00:00.000",
