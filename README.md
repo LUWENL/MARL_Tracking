@@ -20,8 +20,37 @@ Comparative experiments with representative tracking frameworks across three sce
 
 
 ## 🛰️ Our Implementations
+
+### Directory Tree
+```
+marl_tracking/
+├── models/
+│   ├── TTP_module/ (Target Trajectory Prediction Module PWTFTP)
+│   ├── __init__.py
+│   ├── attitude_maneuver.py (Attitude Control of Satellite)
+│   ├── dynamics_and_kinematics.py (Attitude Control of Satellite)
+│   ├── model_utils.py
+│   ├── satellite_model.py
+│   ├── target_model.py
+│   └── test.py
+├── tasks/ (Target Tracking Scenarios)
+│   ├── task1/
+│   ├── task2/
+│   └── task3/
+├── __init__.py
+├── metadata.py (Parameters Configuration)
+├── run.py
+├── target_track.py (Env)
+├── task1.py (Scenario1 Config)
+├── task2.py (Scenario2 Config)
+└── task3.py (Scenario3 Config)
+```
+
 ### :one: MARL_Tracking Env for MARL training/testing
 [Environment Implementation Code](onpolicy/envs/marltracking).
+
+
+
 ### :two: Target Trajectory Prediction: Perceptual Wavelet Transform based Flight Trajectory Prediction (PWTFTP)
 [PWTFTP Implementation Code](onpolicy/envs/models/TTP_module).
 ### :three: Three Tracking Scenarios
